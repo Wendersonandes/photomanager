@@ -1,3 +1,7 @@
+<%= content_for :javascript do %>
+<%= javascript_include_tag "jquery.min"  -%>
+<%= javascript_include_tag "galleria-1.5.5.min"  -%>
+<% end %>
 <h2><%= h @collection.title %></h2>
 <p><%= h @collection.description %></p>
 
@@ -12,6 +16,18 @@
   </div>
 </div>
 <% end %>
+
+<%# for album in @albums %>
+<div class="row">
+  <div class="title">
+	<%= render :partial => "photos/thumb", :locals => {:photo => album.photos.first } unless album.photos.empty? %>
+	<p><%= link_to album.title, collection_album_path(@collection, album) %></p>
+  </div>
+  <div class="image">
+	<%= render :partial => "photos/thumb", :collection => album.photos.find(:all, :limit => 5, :offset => 1), :as => :photo %>
+  </div>
+</div>
+<%# end %>
 
 <%= content_for :action_links do %>
 <% if has_role?("admin") %>

@@ -1,5 +1,5 @@
 module PdfHelper
-  require 'prince'
+	require "#{Rails.root.to_s}/lib/princely/prince"
   
   def self.included(base)
     base.class_eval do

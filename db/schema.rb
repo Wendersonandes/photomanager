@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
   create_table "albums", :force => true do |t|
     t.string   "title",       :null => false
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "path"
     t.string   "address"
     t.float    "longitude"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
   create_table "collection_albums", :force => true do |t|
     t.integer  "collection_id"
     t.integer  "album_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "collection_albums", ["album_id"], :name => "index_collection_albums_on_album_id"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
   create_table "collections", :force => true do |t|
     t.string   "title",       :null => false
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "collections", ["id"], :name => "index_collections_on_id", :unique => true
@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
     t.string   "permissible_type"
     t.string   "action"
     t.boolean  "granted"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "photo_tags", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "photo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "photo_tags", ["photo_id"], :name => "index_photo_tags_on_photo_id"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
     t.string   "title",       :null => false
     t.text     "description"
     t.integer  "album_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "path"
     t.float    "longitude"
     t.float    "latitude"
@@ -92,20 +92,20 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
     t.integer  "roleable_id"
     t.string   "roleable_type"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tags", :force => true do |t|
     t.string   "title",      :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "tags", ["id"], :name => "index_tags_on_id", :unique => true
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(:version => 20130119020645) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "name"
   end
 
