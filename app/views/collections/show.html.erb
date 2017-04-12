@@ -2,24 +2,24 @@
 	<%= javascript_include_tag "jquery.min"  -%>
 	<%= javascript_include_tag "lightbox.min"  -%>
 	<%= stylesheet_link_tag "lightbox.min"  -%>
-	<script type="text/javascript">
-
-	</script>
 <% end %>
 <h2><%= h @collection.title %></h2>
 <p><%= h @collection.description %></p>
 
-<% for album in @albums %>
 <div class="row">
   <div class="demo-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-		<%= render :partial => "photos/thumb", :collection => album.photos.find(:all), :as => :photo %>
+		<% for album in @albums %>
+			<%= render :partial => "photos/thumb", :collection => album.photos.find(:all), :as => :photo %>
+		<% end %>
   </div>
 </div>
-<% end %>
 <%= content_for :action_links do %>
 <% if has_role?("admin") %>
-<%= link_to "PDF", collection_path(@collection, :format => 'pdf') %> |&nbsp;
-<%= link_to "Edit collection", edit_collection_path(@collection) %> | 
-<%= link_to "New album", new_collection_album_path(@collection) %>
+<%= link_to "PDF", collection_path(@collection, :format => 'pdf'), :class => "link light-gray hover-gray" %>
+  |&nbsp;
+<%= link_to "Edit collection", edit_collection_path(@collection), :class => "link light-gray hover-gray" %>
+ | 
+<%= link_to "New album", new_collection_album_path(@collection), :class => "link light-gray hover-gray" %>
+
 <% end %>
 <% end %>

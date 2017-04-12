@@ -9,6 +9,6 @@
 
 <%= content_for :action_links do %>
 <% if has_role?("admin") %>
-<%= link_to "New collection", new_collection_path %>
+	<%= link_to "New collection", new_collection_path, :class => "link light-gray hover-gray" %>
 <% end %>
 <% end %>

@@ -1,3 +1,10 @@
-<%= link_to eval('photo.file.' + (defined?(photosize) ? photosize : "single") + '.url'), :data=> {:lightbox => "example-1"} do %> 
-	<%= image_tag eval('photo.file.' + (defined?(photosize) ? photosize : "album") + '.url') %>
-<% end %>
+<div class= "fl pa1 ma1 bg-black">
+	<%= link_to eval('photo.file.' + (defined?(photosize) ? photosize : "single") + '.url'), :data=> {:lightbox => "example-1"} do %> 
+		<%= image_tag eval('photo.file.' + (defined?(photosize) ? photosize : "collection ") + '.url'), :class => "dib" %>
+	<% end %>
+	<dl class="mt1 f6 lh-copy">
+		<dd class="ml1 gray">
+			<%= photo.description %>
+		</dd>
+	</dl>
+</div>

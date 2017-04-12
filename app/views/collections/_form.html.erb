@@ -1,8 +1,10 @@
-<%= form.label :title, :Title, {:class => 'big'} %><br />
-<%= form.text_field :title, {:class => 'big'} %><br />
+<div class="w-50">
+	<%= form.label :title, :Title, {:class => 'big'} %><br />
+	<%= form.text_field :title, {:class => 'input-reset ba b--black-20 br1 pa2 mb2 db w-100'} %><br />
 
-<%= form.label :description %><br />
-<%= form.text_area :description %><br />
+	<%= form.label :description %><br />
+	<%= form.text_area :description, {:class => 'input-reset ba b--black-20 br1 pa2 mb2 db w-100', :rows => "6"} %><br />
+</div>
 
 <% unless @collection.albums.empty? %>
 <%= form.label :albums %><br />

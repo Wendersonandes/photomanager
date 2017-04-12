@@ -7,25 +7,26 @@
 	<meta name="viewport" content="initial-scale=1.0">
 	<%= yield :head %>
 	<%= stylesheet_link_tag 'application' %>
+	<%= stylesheet_link_tag 'tachyons' %>
 	<%= csrf_meta_tag %>
 </head>
-<body>
-<div id="container">
+<body class="bg-dark-gray white">
+<div id="container" class="w-80">
 
 <div id="header">
-	<div id="action_links">
+	<div id="action_links" class="f6 fw4 mid-gray pt3" >
 	<%= yield :action_links %>
 	<% if current_user %>
-	Logged in as <%= link_to(current_user.name, 'account') %>
-	<%= link_to 'Logout', logout_path %>
+	<span class="white">Logged in as</span> <%= link_to(current_user.name, 'account', :class => "link light-gray hover-gray") %>
+	<%= link_to 'Logout', logout_path, :class => "link light-gray hover-gray" %>
 	<% end %>
 	</div>
 	<h1>
-		<%= link_to(if ENV['LOGO'] then image_tag(ENV['LOGO']) else (ENV['TITLE'] || "Photos") end, root_path) %>
+		<%= link_to(if ENV['LOGO'] then image_tag(ENV['LOGO']) else (ENV['TITLE'] || "Glass") end, root_path, :class => "white f2") %>
 	</h1>
 	<%= form_tag albums_path, { :method => :get, :id => :search } do -%>
 		<input type="text" name="q" class="textfield"/>
-		<input type="submit" value="Search" class="button" />
+		<input type="submit" value="Search" class="f6 button-reset link dim br2 ba ph3 pv2 mb2 dib dark-gray" />
 	<% end -%>
     <hr class="seperator" />
 	<%= breadcrumbs %>
@@ -38,8 +39,6 @@
 
 <div id="footer">
   
-  <hr class="seperator" />
-  &copy; <a href="http://balderapp.com">Balder - open source photo gallery</a>.
 </div>
 </div>
 
