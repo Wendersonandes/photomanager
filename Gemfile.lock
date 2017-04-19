@@ -246,6 +246,8 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.16.0)
     rake (12.0.0)
+    ranked-model (0.4.0)
+      activerecord (>= 3.1.12)
     rbvmomi (1.8.2)
       builder
       nokogiri (>= 1.4.1)
@@ -293,6 +295,7 @@ DEPENDENCIES
   pg
   rails (~> 3.2.8)
   rails_12factor
+  ranked-model
   sprockets
   sqlite3-ruby
   test-unit
