@@ -1,6 +1,10 @@
 class Photo < ActiveRecord::Base
   # TODO: path not used? it should be removed from the DB
 
+	include RankedModel
+	ranks :row_order
+	default_scope{ order("row_order ASC")}
+
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
