@@ -246,3 +246,35 @@ DIV#collection_albums IMG.delete {
 	right:  8px;
 	top:  8px;
 }
+
+.sortable.grid li {
+	line-height: 80px;
+	float: left;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	list-style: none;
+	border: 1px solid #CCC;
+	background: #F6F6F6;
+	color: #1C94C4;
+	margin: 5px;
+	padding: 5px;
+	cursor: move;
+}
+li.sortable-placeholder {
+	border: 1px dashed #CCC;
+	background: none;
+}
+.sortable.grid {
+	overflow: hidden;
+}
+.sortable{
+	margin: auto;
+	padding: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
