@@ -1,11 +1,108 @@
+<%= content_for :javascript do %>
+	<%= javascript_include_tag "jquery.min"  -%>
+	<%= javascript_include_tag "photos"  -%>
+	<%= javascript_include_tag "jquery.sortable.min.js"  -%>
+	<style type="text/css">@import url(/javascripts/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>
+	<%= javascript_include_tag "plupload/js/plupload.full.js" -%>
+	<%= javascript_include_tag "plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"  -%>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("#uploader").pluploadQueue({
+				// General settings
+				runtimes : 'flash,html5,browserplus,silverlight,gears',
+				url : '<%= photos_path %>',
+				max_file_size : '10mb',
+				multipart: true,  
+					 multipart_params: {  
+					'<%= get_session_key %>' : encodeURIComponent('<%= cookies[get_session_key] %>'),
+					'authenticity_token' : '<%= form_authenticity_token %>',
+					'photo[album_id]' : "<%= @album.id %>"
+					 },
+
+				// Resize images on clientside if we can
+				//resize : {width : 320, height : 240, quality : 90},
+
+				// Specify what files to browse for
+				filters : [
+					{title : "Image files", extensions : "jpg,gif,png,bmp,jpeg,tif,tiff"}
+				],
+
+				// Flash settings
+				flash_swf_url : '/javascripts/plupload/js/plupload.flash.swf',
+
+				// Silverlight settings
+				silverlight_xap_url : '/javascripts/plupload/js/plupload.silverlight.xap',
+				dragdrop: true,
+				
+				// Post init events, bound after the internal events
+					init : {
+
+						FileUploaded: function(up, file, info) {
+							// Called when a file has finished uploading
+							res = info.response;
+							if (res.substring(0, 7) === "FILEID:") {
+								var image = $('<img>').appendTo('#thumbs')
+								image.css('display','none')
+								image.attr('src', res.substring(7) )
+								image.fadeIn('slow')
+							}
+						}
+					}
+			});
+
+			// Client side form validation
+			$('form#form_uploader').submit(function(e) {
+				var uploader = $('#uploader').pluploadQueue();
+
+				// Validate number of uploaded files
+				if (uploader.total.uploaded == 0) {
+					// Files in queue upload them first
+					if (uploader.files.length > 0) {
+						// When all files are uploaded submit form
+						uploader.bind('UploadProgress', function() {
+							if (uploader.total.uploaded == uploader.files.length)
+								$('form#form_uploader').submit();
+						});
+
+						uploader.start();
+					} else
+						alert('You must at least upload one file.');
+
+					e.preventDefault();
+				}
+			});
+	})
+	</script>
+<% end %>
 <h1>Edit Album</h1>
  
-<%= form_for @album do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Update" %>
-<% end %>
- 
+<div class="fl w-100">
+	<form id="form_uploader">
+		<div id="uploader">
+			<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+    </div>
+
+		<br>
+	</form>
+</div>
+<div class="fl w-60">
+	<%= form_for @album do |f| %>
+		<%= f.error_messages %>
+		<%= render :partial => "form", :object => f %>
+		<%= f.submit "Update" %>
+	<% end %>
+</div>
+ <div class="fl w-40" id="multipleimages">
+	<ul class="sortable grid ma0 dib">
+		<% for photo in @album.photos.find(:all) %>
+			<%= render :partial => "photos/thumb_sort", :locals => {:photo => photo}%>
+		<% end %>
+		<div id="thumbs"></div>
+	</ul>
+</div>
+
 
 <%= content_for :action_links do %>
 <% if has_role?("admin") %>
@@ -13,5 +110,6 @@
 <%= link_to("Delete album", { :action => "destroy", :id => @album, :collection_id => params[:collection_id] },
   :confirm => "Are you sure you want to delete this album?",
   :method => :delete) %>
+<%= link_to "Add photos to this album", upload_album_photos_path(@album), :class => "link mid-gray hover-gray" %>
 <% end %>
 <% end %>
