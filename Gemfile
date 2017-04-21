@@ -19,8 +19,14 @@ gem 'sprockets'
 gem 'ranked-model'
 # -- Database
 # SQLite:
+
+gem 'rails-assets-html.sortable', source: 'https://rails-assets.org'
+
 group :development do
   gem 'sqlite3-ruby'
+	gem 'pry'
+	gem 'pry-byebug'
+
 end
 group :production do
   # MySQL:

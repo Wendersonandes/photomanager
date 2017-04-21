@@ -15,6 +15,7 @@ Balder::Application.routes.draw do
       get :upload
       get :scan
     end
+		put :sort, :on => :collection
   end
   resources :albums do
     collection do

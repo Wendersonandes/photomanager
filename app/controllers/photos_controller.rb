@@ -119,6 +119,12 @@ class PhotosController < ApplicationController
     end
   end
 
+	def sort
+		params[:order].each do |key, value|
+			Photo.find(value[:id]).update_attribute(:row_order, value[:position])
+		end
+		render :nothing => true
+	end
   def update_multiple
     @photos = params[:photos][:photo]
     @photos.each do |photo_item|

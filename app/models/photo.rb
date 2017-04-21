@@ -17,7 +17,7 @@ class Photo < ActiveRecord::Base
   before_create :exif_read
   #before_update :exif_write
 
-  attr_accessor :tag_list
+  attr_accessor :tag_list, :order
   
   scope :untouched, :conditions => "photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags)", :include => :album 
   scope :previous, lambda { |p,a| { :conditions => ["id < :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id DESC"} }
