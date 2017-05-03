@@ -80,7 +80,8 @@ class PhotosController < ApplicationController
     @photo.file = params[:file]
     respond_to do |format|
         if @photo.save
-          format.html { render :text => "FILEID:" + @photo.file.album.url }
+          #format.html { render :text => "FILEID:" + @photo.file.album.url }
+					format.json  { render :json => @photo }
           format.xml  { render :nothing => true }
         else
           format.html { render :text => "ERRORS:" + @photo.errors.full_messages.join(" "), :status => 500 }
@@ -143,15 +144,9 @@ class PhotosController < ApplicationController
   
   def destroy
     @photo = Photo.find( params[:id])
-    @album = @photo.album
-    if @photo.destroy
-      if params[:collection_id]
-        redirect_to collection_album_path( params[:collection_id], @album )
-      else
-        redirect_to @album
-      end
-    else
-      redirect_to @photo
-    end
+		@photo.destroy
+		respond_to do |format|
+			format.json { head :no_content }
+		end
   end
 end
