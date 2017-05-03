@@ -1,6 +1,9 @@
 <%= content_for :javascript do %>
-<%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true" -%>
-<%= javascript_include_tag "tag/tag"  -%>
+	<%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true" -%>
+	<%= javascript_include_tag "medium-editor.min"  -%>
+	<%= stylesheet_link_tag 'medium-editor.min', 'medium-editor-default.min' %>
+	<%= javascript_include_tag "editor_settings"  -%>
+	<%= javascript_include_tag "tag/tag"  -%>
 <% end %>
 
 <div id="map_canvas"></div>
@@ -13,20 +16,14 @@
 <%= form.hidden_field :latitude %>
 <%= form.hidden_field :longitude %>
 
-<%= form.label :title, :Title, {:class => 'big w-50'} %><br />
-<%= form.text_field :title, {:class => 'big w-50'} %><br />
+<%= form.label :title, :Title, {:class => 'big w-80'} %><br />
+<%= form.text_field :title, {:class => 'big w-80 db border-box hover-black ba b--black-20 pa1 br2 mb2'} %><br />
 
-<%= form.label :description, {:class => 'big w-50'} %><br />
-<%= form.text_area :description, {:class => 'big w-50'} %><br />
-
-<%= form.label :address, {:class => 'big w-50'} %><br />
-<%= form.text_area :address, { :rows => 3,:class => 'big w-50'} %><br />
-
-<%= form.label :note, {:class => 'big w-50'} %><br />
-<%= form.text_area :note, {:class => 'big w-50'} %><br />
-
-<%= form.label :tags %><br />
-<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => (@album.tags.map{|tag|tag.title}.join(" ") unless @album.tags.nil?) } %><br />
+<%= form.label :description, {:class => 'big w-80'} %><br />
+<%= form.hidden_field :description, html: { id: "description" } %>
+<div class="editable big w-80 h5 db bg-white border-box black ba b--black-20 pa2 br2 mb2" data-field-id="description">
+	<%= raw @album.description %>
+</div>
 
 <br />
 Contains: <%= @album.photos.count %> photos<br/>
