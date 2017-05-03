@@ -9,8 +9,9 @@ set_positions = function(){
 ready = function(){
 	// call set_positions function
 	set_positions();
-	$('.sortable').sortable();
-
+	$('.sortable').sortable({
+	    handle: '.dragdrop__handler'
+	});
 
 	// after the order changes
 	$('.sortable').sortable().bind('sortupdate', function(e, ui) {
@@ -18,7 +19,7 @@ ready = function(){
 		updated_order = []
 		// set the updated positions
 		set_positions();
-		// populate the updated_order array with the new task positions
+		// populate the updated_order array with the new photos positions
 		$('.photo__thumb').each(function(i){
 			updated_order.push({ id: $(this).data("id"), position: i+1 });
 		});
@@ -34,6 +35,25 @@ ready = function(){
 			url: '/photos/sort',
 			data: { order: updated_order }
 		});
+	})
+
+	$(document).on('click', '.delete__photo', function(){
+		var el = $(this).closest('.photo__thumb')
+		var photo_id = el.data('id')
+		$.ajaxSetup({
+		  headers: {
+			    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+			  }
+		});
+	$.ajax({
+			type: 'DELETE',
+			url: `/photos/${photo_id}`,
+			success: function(){
+				el.fadeOut(400, function(){
+					$(el).remove()
+				})
+			}
+		})
 	})
 }
 $(document).ready(ready);
