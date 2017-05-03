@@ -1,8 +1,7 @@
 <%= content_for :javascript do %>
 	<%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true" -%>
-	<%= javascript_include_tag "medium-editor.min"  -%>
+	<%= javascript_include_tag "medium-editor.min","editor_settings"  -%>
 	<%= stylesheet_link_tag 'medium-editor.min', 'medium-editor-default.min' %>
-	<%= javascript_include_tag "editor_settings"  -%>
 	<%= javascript_include_tag "tag/tag"  -%>
 <% end %>
 
