@@ -11,6 +11,7 @@
 			<%= render :partial => "photos/thumb_sort", :locals => {:photo => photo}%>
 		<% end %>
 	</ul>
+	<%= link_to "Add new photos", upload_album_photos_path(@album), :class => "link mid-gray hover-gray" %>
 </div>
 
 <p><%= @album.description %></p>
