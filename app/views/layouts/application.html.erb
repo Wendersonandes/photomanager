@@ -16,8 +16,8 @@
 	<div id="action_links" class="f6 fw4 mid-gray pt3" >
 	<%= yield :action_links %>
 	<% if current_user %>
-	<span class="white">Logged in as</span> <%= link_to(current_user.name, 'account', :class => "link light-gray hover-gray") %>
-	<%= link_to 'Logout', logout_path, :class => "link light-gray hover-gray" %>
+		<span class="white">Logged in as</span> <%= link_to current_user.name, account_path, :class => "link light-gray hover-gray" %>
+		<%= link_to 'Logout', logout_path, :class => "link light-gray hover-gray" %>
 	<% else %>
 		<%= link_to 'Login', login_path, :class => "link light-gray hover-gray" %>
 	<% end %>
