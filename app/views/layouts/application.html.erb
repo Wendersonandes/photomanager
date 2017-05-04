@@ -18,6 +18,8 @@
 	<% if current_user %>
 	<span class="white">Logged in as</span> <%= link_to(current_user.name, 'account', :class => "link light-gray hover-gray") %>
 	<%= link_to 'Logout', logout_path, :class => "link light-gray hover-gray" %>
+	<% else %>
+		<%= link_to 'Login', login_path, :class => "link light-gray hover-gray" %>
 	<% end %>
 	</div>
 	<h1>
