@@ -1,28 +1,25 @@
-<div class="w-50">
-	<%= form.label :title, :Title, {:class => 'big'} %><br />
-	<%= form.text_field :title, {:class => 'input-reset ba b--black-20 br1 pa2 mb2 db w-100'} %><br />
+<%= form.label :title, :Title, {:class => 'big'} %><br />
+<%= form.text_field :title, {:class => 'big'} %><br />
 
-	<%= form.label :description %><br />
-	<%= form.text_area :description, {:class => 'input-reset ba b--black-20 br1 pa2 mb2 db w-100', :rows => "6"} %><br />
-</div>
+<%= form.label :description %><br />
+<%= form.text_area :description %><br />
 
-<% unless @collection.albums.empty? %>
-<%= form.label :albums %><br />
-<div id="collection_albums">
-<% for album in @collection.albums %>
-<%= form.fields_for :album_list do |album_fields| %>
-<span>
-<%= image_tag "delete-24x24.png", :class => "delete", :alt => "Delete" -%>
+	<%= form.label :albums %><br />
+	<div id="collection_albums">
+		<% for album in @collection.albums %>
+			<%= form.fields_for :album_list do |album_fields| %>
+			<span>
+				<%= image_tag "delete-24x24.png", :class => "delete", :alt => "Delete" -%>
 
-<% if album.photos.empty? %>
-	<%= album.title %>
-<% else %>
-<%= image_tag album.photos.first.file.album.url, :alt => album.title %>
-<% end %>
-<%= album_fields.hidden_field album.id %>
-</span>
-<% end %>
-<% end %>
+				<% if album.photos.empty? %>
+					<%= album.title %>
+				<% else %>
+					<%= image_tag album.photos.first.file.album.url, :alt => album.title %>
+				<% end %>
+				<%= album_fields.hidden_field album.id %>
+				</span>
+		<% end %>
+	<% end %>
 </div>
 
 <p class="clear">
@@ -37,4 +34,3 @@ grouped_options_for_select(grouped_options)
 <%= select_tag 'available_albums', grouped_options_for_select(grouped_options) %>
 </p>
 
-<% end %>
