@@ -50,7 +50,7 @@ ready = function(){
 			url: `/photos/${photo_id}`,
 			success: function(){
 				el.fadeOut(400, function(){
-					$(el).remove()
+					$(this).remove()
 				})
 			}
 		})
